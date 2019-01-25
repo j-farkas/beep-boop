@@ -119,6 +119,9 @@ $(document).ready(function(){
       $(".deal").hide();
       $(".hit").show();
       $(".stand").show();
+      $(".mycards").empty();
+      $(".dcards").empty();
+      $(".pval").empty();
       dCards = [deck[0],deck[1]];
       myCards = [deck[2],deck[3]];
       $(".dcards").append("<li>" + dCards[0] + "</li><li>" + dCards[1] +"</li>");
