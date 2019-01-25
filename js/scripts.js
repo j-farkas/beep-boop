@@ -24,6 +24,7 @@ $(document).ready(function(){
     });
   }
   $("form#numshift").submit(function(event){
+    $('ul').empty();
     var input = $("#num").val();
     input = parNum(parseInt(input));
     console.log(input);

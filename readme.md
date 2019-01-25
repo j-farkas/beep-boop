@@ -1,18 +1,18 @@
-# _Roman Numerals_
+# _Beep Boop_
 
-#### _Converts Numbers into Roman Numerals_
+#### _Beep Boop Project_
 
-#### By _**Jared Farkas, Sanyu Prado**_
+#### By _**Jared Farkas**_
 
 ## Description
 
-_Converts a given number into roman numerals_
+_Checks if numbers in a given array have specific digits, if so provides different output_
 
 ## Setup/Installation Requirements
 
 * _Clone from Repository_
 * _Run in browser_
-* _Enter a number between 1 and 3999_
+* _Enter a number_
 
 
 ## Known Bugs
@@ -20,11 +20,13 @@ _Converts a given number into roman numerals_
 _None known_
 
 ## Specs
-_*input: 1 / expected output: I*_
-_*input: 9 / expected output: IX*_
-_*input: 3000 / expected output: MMM*_
-_*input: 41 / expected output: XLI*_
-_*input: 1090 / expected output: MXC*_
+_*input: 1 / expected output: 0*_
+_*input: 5 / expected output: 0,beep!,boop,I'm sorry dave I'm afraid I can't do that,4*_
+_*input: 32 / expected output: ...,I'm sorry dave I'm afraid I can't do that *_
+_*input: 21 / expected output: ...,boop*_
+_*input: 103 / expected output: ...,I'm sorry dave I'm afraid I can't do that*_
+_*input: 123 / expected output: ...,I'm sorry dave I'm afraid I can't do that*_
+_*input: 177 / expected output: ...,beep!*_
 
 ## Technologies Used
 
@@ -34,4 +36,4 @@ _HTML, CSS, Bootstrap, Javascript and Jquery were used_
 
 *This software is licensed under the MIT license*
 
-Copyright (c) 2016 **_{List of contributors or company name}_**
+Copyright (c) 2016 **_Jared Farkas_**
