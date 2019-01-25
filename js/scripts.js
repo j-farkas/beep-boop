@@ -103,26 +103,33 @@ function gameOver(arr, arr2){
   clearArr(arr);
   clearArr(arr2);
 }
+
 function clearArr(A){
-  A.length = 0;
+  A = [];
 }
 
 
 function init()
 {
-  createDeck();
+  myCards.length = 0;
   shuffle(deck);
-  dCards = deck.slice(0,2);
-  myCards = deck.slice(2,4);
-  myVal = checkVal(myCards);
-  return deck;
+  var topTwo = [deck.shift(), deck.shift()];
+  var nextTwo = [deck.shift(), deck.shift()];
+  dCards = topTwo;
+  myCards = nextTwo;
+  topTwo.forEach(function(a){
+    deck.push(a);
+  })
+  nextTwo.forEach(function(a){
+    deck.push(a);
+  })
 }
 
 function hit(){
-  myCards.push(deck[0]);
-  deck = deck.slice(1,deck.length).concat(deck.slice(0,1));
-  myVal = checkVal(myCards);
-
+  var topCard = deck.shift();
+  myCards.push(topCard);
+  deck.push(topCard);
+  console.log(myCards);
 }
 $(document).ready(function(){
   function toList(arr){
@@ -137,9 +144,10 @@ $(document).ready(function(){
     toList(input);
     event.preventDefault();
     });
+    createDeck();
     $(".deal").click(function(event){
       //initialize everything
-      var deck = init();
+      init();
       $(".deal").hide();
       $(".hit").show();
       $(".stand").show();
@@ -148,7 +156,6 @@ $(document).ready(function(){
       $(".pval").empty();
       $(".wins").text("Wins: " + wins);
       $(".losses").text("Losses: " + losses);
-      /*deck = deck.slice(4,deck.length).concat(deck.slice(0,4));*/
       myCards.forEach(function(i){
         $(".mycards").append("<li>" + i +"</li>");
       });
@@ -168,7 +175,6 @@ $(document).ready(function(){
       $(".hit").click(function(event){
         $(".mycards").empty();
         hit();
-
         myCards.forEach(function(i){
           $(".mycards").append("<li>" + i +"</li>");
         });
@@ -177,7 +183,6 @@ $(document).ready(function(){
           //player has lost
           $(".pval").text("Busted");
           gameOver(dCards, myCards);
-
           losses++;
         }
       })
