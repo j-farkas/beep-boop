@@ -3,7 +3,6 @@ function parNum(num){
   for(var i = 0;i<num;i++)
   {
     var j = i.toString().split('');
-    console.log(j);
     if(j.includes("3"))
     {
       arr.push("I'm sorry, Dave. I'm Afraid I can't do that");
@@ -72,7 +71,6 @@ function checkVal(arr) {
   var ace = 0;
   arr.forEach(function(ar)
 {
-  console.log(ar.charAt(0));
   if(ar.charAt(0) === "J" || ar.charAt(0) === "Q" || ar.charAt(0) === "K"  ){
 val+=10;
 }else if(ar.charAt(0) === "A")
@@ -93,12 +91,11 @@ while(val > 21 && ace > 0)
 }
   return val;
 }
-var wins = 0;
 var losses = 0;
+var wins = 0;
 $(document).ready(function(){
   var deck = createDeck();
   shuffle(deck);
-  console.log(deck);
   function toList(arr){
     arr.forEach(function(ar){
       $(".bbout").append("<li>" + ar +"</li>");
@@ -108,7 +105,6 @@ $(document).ready(function(){
     $('.bbout').empty();
     var input = $("#num").val();
     input = parNum(parseInt(input));
-    console.log(input);
     toList(input);
     event.preventDefault();
     });
@@ -124,6 +120,8 @@ $(document).ready(function(){
       $(".mycards").empty();
       $(".dcards").empty();
       $(".pval").empty();
+      $(".wins").text("Wins: " + wins);
+      $(".losses").text("Losses: " + losses);
       dCards = [deck[0],deck[1]];
       myCards = [deck[2],deck[3]];
       myCards.forEach(function(i){
@@ -142,6 +140,11 @@ $(document).ready(function(){
         $(".hit").hide();
         $(".stand").hide();
       }
+
+console.log(myCards);
+
+
+
       //Put the used cards in the bottom of the deck
       deck = deck.slice(4,deck.length).concat(deck.slice(0,4));
       $(".hit").click(function(event){
@@ -152,6 +155,7 @@ $(document).ready(function(){
         });
         deck = deck.slice(1,deck.length).concat(deck.slice(0,1));
         myVal = checkVal(myCards);
+        console.log(myCards);
         if(myVal > 21)
         {
           //player has lost
@@ -160,6 +164,8 @@ $(document).ready(function(){
           $(".hit").hide();
           $(".stand").hide();
           losses++;
+          myCards.length = 0;
+          dCards.length = 0;
 
         }
       })
@@ -183,6 +189,8 @@ $(document).ready(function(){
           $(".hit").hide();
           $(".stand").hide();
           wins++;
+          myCards.length = 0;
+          dCards.length = 0;
         }else if(myVal > dVal)
         {
           //player has a higher value
@@ -191,6 +199,8 @@ $(document).ready(function(){
           $(".hit").hide();
           $(".stand").hide();
           wins++;
+          myCards.length = 0;
+          dCards.length = 0;
         }else{
           //player has a lower value
           $(".pval").text("You lose");
@@ -198,6 +208,8 @@ $(document).ready(function(){
           $(".hit").hide();
           $(".stand").hide();
           losses++;
+          myCards.length = 0;
+          dCards.length = 0;
         }
       })
 
