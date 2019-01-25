@@ -104,11 +104,10 @@ function clearArr(A){
       A.pop();
   }
 }
+
 var losses = 0;
 var wins = 0;
 $(document).ready(function(){
-  var deck = createDeck();
-  shuffle(deck);
   function toList(arr){
     arr.forEach(function(ar){
       $(".bbout").append("<li>" + ar +"</li>");
@@ -123,6 +122,8 @@ $(document).ready(function(){
     });
     $(".deal").click(function(event){
       //initialize everything
+      var deck = createDeck();
+      shuffle(deck);
       var myVal = 0;
       var dVal = 0;
       $(".deal").hide();
@@ -133,8 +134,8 @@ $(document).ready(function(){
       $(".pval").empty();
       $(".wins").text("Wins: " + wins);
       $(".losses").text("Losses: " + losses);
-      var dCards = [deck[0],deck[1]];
-      var myCards = [deck[2],deck[3]];
+      dCards = deck.slice(0,2);
+      myCards = deck.slice(2,4);
       myCards.forEach(function(i){
         $(".mycards").append("<li>" + i +"</li>");
       });
