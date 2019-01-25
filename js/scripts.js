@@ -131,14 +131,38 @@ function hit(){
   deck.push(topCard);
 }
 function stand(){
-dVal = checkVal(dCards);
-while(dVal < 16 && dVal < myVal)
-{
-  dCards.push(deck[0]);
-  $(".dcards").append("<li>" + deck[0] +"</li>");
-  deck = deck.slice(1,deck.length).concat(deck.slice(0,1));
   dVal = checkVal(dCards);
+  while(dVal < 16 && dVal < myVal)
+  {
+    dCards.push(deck[0]);
+    $(".dcards").append("<li>" + deck[0] +"</li>");
+    deck = deck.slice(1,deck.length).concat(deck.slice(0,1));
+    dVal = checkVal(dCards);
+  }
 }
+function randomBack(){
+  var j = Math.floor(Math.random() * 6);
+  switch(j){
+  case 0:
+    j = "Red";
+    break;
+  case 1:
+    j = "Gray";
+    break;
+  case 2:
+    j = "Green";
+    break;
+  case 3:
+    j = "Yellow";
+    break;
+  case 4:
+    j = "blue";
+    break;
+  case 5:
+    j = "purple";
+    break;
+}
+  return j;
 }
 $(document).ready(function(){
   function toList(arr){
@@ -166,13 +190,12 @@ $(document).ready(function(){
       $(".wins").text("Wins: " + wins);
       $(".losses").text("Losses: " + losses);
       myCards.forEach(function(i){
-        $(".mycards").append("<li>" + i +"</li>");
+        var j = i.split(" ");
+        $(".mycards").append("<li> <img src=img/" +j[0].charAt(0) + j[2].charAt(0)  +".jpg></li>");
       });
-      /*dCards.forEach(function(i){
-        $(".dcards").append("<li>" + i +"</li>");
-      });*/
-      $(".dcards").append("<li>" + dCards[0] +"</li>");
-      $(".dcards").append("<li> ??? </li>");
+      $(".dcards").append("<li> <img src=img/" + dCards[0].split(" ")[0].charAt(0) + dCards[0].split(" ")[2].charAt(0)  +".jpg></li>");
+      var backColor = randomBack();
+      $(".dcards").append("<li> <img src=img/" + backColor +"_back.jpg></li>");
 
       if(checkVal(myCards) === 21)
       {
@@ -188,7 +211,8 @@ $(document).ready(function(){
         $(".mycards").empty();
         hit();
         myCards.forEach(function(i){
-          $(".mycards").append("<li>" + i +"</li>");
+          var j = i.split(" ");
+          $(".mycards").append("<li> <img src=img/" +j[0].charAt(0) + j[2].charAt(0)  +".jpg></li>");
         });
         if(checkVal(myCards) > 21)
         {
@@ -216,6 +240,11 @@ $(document).ready(function(){
           $(".pval").text("You win");
           gameOver(dCards, myCards);
           wins++;
+        }else if(checkVal(myCards) > dVal)
+        {
+          //tie
+          $(".pval").text("Push");
+          gameOver(dCards, myCards);
         }else{
           //player has a lower value
           $(".pval").text("You lose");
