@@ -3,5 +3,14 @@ h2{
 }
 
 .form-control{
-  width: 300px;
+  width: 30%;
+}
+
+body{
+  background-color:#c7e1f9;
+  font-family:sans-serif;
+}
+ul{
+  float:right;
+  margin-right: 33%;
 }
