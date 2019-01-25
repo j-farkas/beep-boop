@@ -2,19 +2,17 @@ function parNum(num){
   arr = [];
   for(var i = 0;i<num;i++)
   {
-    if([3].includes(i).toString())
+    var j = i.toString().split('');
+    console.log(j);
+    if(j.includes("3"))
     {
       arr.push("I'm sorry, Dave. I'm Afraid I can't do that");
-    }else if([2].includes(i)){
+    }else if(j.includes("2")){
       arr.push("Boop");
-    }else if([1].includes(i)){
+    }else if(j.includes("1")){
       arr.push("Beep!");
     }else{
-      if(i.length>1){
-        arr.push(i);
-      }else{
-      arr.push(i);
-      }
+      arr.push(j.join(''));
     }
   }
   return arr;
