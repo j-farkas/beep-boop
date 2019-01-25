@@ -27,7 +27,6 @@ $(document).ready(function(){
     $('ul').empty();
     var input = $("#num").val();
     input = parNum(parseInt(input));
-    console.log(input);
     toList(input);
     event.preventDefault();
     });
