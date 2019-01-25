@@ -17,8 +17,6 @@ function parNum(num){
   return arr;
 }
 
-var losses = 0;
-var wins = 0;
 var myVal = 0;
 var dVal = 0;
 var myCards = [];
@@ -186,8 +184,6 @@ $(document).ready(function(){
       $(".mycards").empty();
       $(".dcards").empty();
       $(".pval").empty();
-      $(".wins").text("Wins: " + wins);
-      $(".losses").text("Losses: " + losses);
       myCards.forEach(function(i){
         var j = i.split(" ");
         $(".mycards").append("<li> <img src=img/" +j[0].charAt(0) + j[2].charAt(0)  +".jpg></li>");
@@ -195,20 +191,18 @@ $(document).ready(function(){
       $(".dcards").append("<li> <img src=img/" + dCards[0].split(" ")[0].charAt(0) + dCards[0].split(" ")[2].charAt(0)  +".jpg></li>");
       var backColor = randomBack();
       $(".dcards").append("<li> <img src=img/" + backColor +"_back.jpg></li>");
-
+      $(".pscore").text(checkVal(myCards));
+      $(".dscore").text("????");
       if(checkVal(myCards) === 21)
       {
         //blackjack, player wins
-        wins++;
         $(".pval").text("Blackjack");
-        $(".deal").show();
-        $(".hit").hide();
-        $(".stand").hide();
-        clearArr(myCards);
+        gameOver(myCards,dCards);
       }
       $(".hit").off().on('click', function() {
         $(".mycards").empty();
         hit();
+        $(".pscore").text(checkVal(myCards));
         myCards.forEach(function(i){
           var j = i.split(" ");
           $(".mycards").append("<li> <img src=img/" +j[0].charAt(0) + j[2].charAt(0)  +".jpg></li>");
@@ -218,11 +212,11 @@ $(document).ready(function(){
           //player has lost
           $(".pval").text("Busted");
           gameOver(dCards, myCards);
-          losses++;
         }
       })
       $(".stand").click(function(event){
         stand();
+        $(".dscore").text(checkVal(dCards));
         $(".dcards").empty();
         dCards.forEach(function(i){
         $(".dcards").append($(".dcards").append("<li> <img src=img/" + i.split(" ")[0].charAt(0) + i.split(" ")[2].charAt(0)  +".jpg></li>"));
@@ -233,14 +227,12 @@ $(document).ready(function(){
           //player has won
           $(".pval").text("Dealer Busts");
           gameOver(dCards, myCards);
-          wins++;
         }else if(checkVal(myCards) > dVal)
         {
           //player has a higher value
           $(".pval").text("You win");
           gameOver(dCards, myCards);
-          wins++;
-        }else if(checkVal(myCards) > dVal)
+        }else if(checkVal(myCards) === dVal)
         {
           //tie
           $(".pval").text("Push");
@@ -248,7 +240,6 @@ $(document).ready(function(){
         }else{
           //player has a lower value
           $(".pval").text("You lose");
-          losses++;
           gameOver(dCards,myCards);
         }
       })
