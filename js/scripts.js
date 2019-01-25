@@ -68,7 +68,6 @@ function createDeck(){
   return deck;
 }
 function checkVal(arr) {
-  arr=arr.sort();
   var val = 0;
   var ace = 0;
   arr.forEach(function(ar)
@@ -94,6 +93,8 @@ while(val > 21 && ace > 0)
 }
   return val;
 }
+var wins = 0;
+var losses = 0;
 $(document).ready(function(){
   var deck = createDeck();
   shuffle(deck);
@@ -112,10 +113,11 @@ $(document).ready(function(){
     event.preventDefault();
     });
     $(".deal").click(function(event){
-      var myVal;
-      var dVal;
-      var dCards;
-      var myCards;
+      //initialize everything
+      var myVal = 0;
+      var dVal = 0;
+      var dCards = [];
+      var myCards = [];
       $(".deal").hide();
       $(".hit").show();
       $(".stand").show();
@@ -124,26 +126,78 @@ $(document).ready(function(){
       $(".pval").empty();
       dCards = [deck[0],deck[1]];
       myCards = [deck[2],deck[3]];
-      $(".dcards").append("<li>" + dCards[0] + "</li><li>" + dCards[1] +"</li>");
-      $(".mycards").append("<li>" + myCards[0] +"</li><li>" + myCards[1] +"</li>");
+      myCards.forEach(function(i){
+        $(".mycards").append("<li>" + i +"</li>");
+      });
+      dCards.forEach(function(i){
+        $(".dcards").append("<li>" + i +"</li>");
+      });
       myVal = checkVal(myCards);
-      console.log(myVal);
+      if(myVal === 21)
+      {
+        //blackjack, player wins
+        wins++;
+        $(".pval").text("Blackjack");
+        $(".deal").show();
+        $(".hit").hide();
+        $(".stand").hide();
+      }
       //Put the used cards in the bottom of the deck
       deck = deck.slice(4,deck.length).concat(deck.slice(0,4));
-      console.log(deck);
       $(".hit").click(function(event){
+        $(".mycards").empty();
         myCards.push(deck[0]);
-        $(".mycards").append("<li>" + deck[0] +"</li>");
+        myCards.forEach(function(i){
+          $(".mycards").append("<li>" + i +"</li>");
+        });
         deck = deck.slice(1,deck.length).concat(deck.slice(0,1));
         myVal = checkVal(myCards);
         if(myVal > 21)
         {
-          //player hast lost
+          //player has lost
           $(".pval").text("Busted");
           $(".deal").show();
           $(".hit").hide();
           $(".stand").hide();
+          losses++;
 
+        }
+      })
+      $(".stand").click(function(event){
+        $(".dcards").empty();
+        dCards.forEach(function(i){
+        $(".dcards").append("<li>" + i +"</li>");});
+        dVal = checkVal(dCards);
+        while(dVal < 16 && dVal < myVal)
+        {
+          dCards.push(deck[0]);
+          $(".dcards").append("<li>" + deck[0] +"</li>");
+          deck = deck.slice(1,deck.length).concat(deck.slice(0,1));
+          dVal = checkVal(dCards);
+        }
+        if(dVal > 21)
+        {
+          //player has won
+          $(".pval").text("Dealer Busts");
+          $(".deal").show();
+          $(".hit").hide();
+          $(".stand").hide();
+          wins++;
+        }else if(myVal > dVal)
+        {
+          //player has a higher value
+          $(".pval").text("You win");
+          $(".deal").show();
+          $(".hit").hide();
+          $(".stand").hide();
+          wins++;
+        }else{
+          //player has a lower value
+          $(".pval").text("You lose");
+          $(".deal").show();
+          $(".hit").hide();
+          $(".stand").hide();
+          losses++;
         }
       })
 
