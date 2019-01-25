@@ -129,7 +129,16 @@ function hit(){
   var topCard = deck.shift();
   myCards.push(topCard);
   deck.push(topCard);
-  console.log(myCards);
+}
+function stand(){
+dVal = checkVal(dCards);
+while(dVal < 16 && dVal < myVal)
+{
+  dCards.push(deck[0]);
+  $(".dcards").append("<li>" + deck[0] +"</li>");
+  deck = deck.slice(1,deck.length).concat(deck.slice(0,1));
+  dVal = checkVal(dCards);
+}
 }
 $(document).ready(function(){
   function toList(arr){
@@ -159,9 +168,12 @@ $(document).ready(function(){
       myCards.forEach(function(i){
         $(".mycards").append("<li>" + i +"</li>");
       });
-      dCards.forEach(function(i){
+      /*dCards.forEach(function(i){
         $(".dcards").append("<li>" + i +"</li>");
-      });
+      });*/
+      $(".dcards").append("<li>" + dCards[0] +"</li>");
+      $(".dcards").append("<li> ??? </li>");
+
       if(checkVal(myCards) === 21)
       {
         //blackjack, player wins
@@ -190,42 +202,25 @@ $(document).ready(function(){
         $(".dcards").empty();
         dCards.forEach(function(i){
         $(".dcards").append("<li>" + i +"</li>");});
-        dVal = checkVal(dCards);
-        while(dVal < 16 && dVal < myVal)
-        {
-          dCards.push(deck[0]);
-          $(".dcards").append("<li>" + deck[0] +"</li>");
-          deck = deck.slice(1,deck.length).concat(deck.slice(0,1));
-          dVal = checkVal(dCards);
-        }
+        stand();
+        var dVal=checkVal(dCards);
         if(dVal > 21)
         {
           //player has won
           $(".pval").text("Dealer Busts");
-          $(".deal").show();
-          $(".hit").hide();
-          $(".stand").hide();
+          gameOver(dCards, myCards);
           wins++;
-          myCards.length = 0;
-          dCards.length = 0;
-        }else if(myVal > dVal)
+        }else if(checkVal(myCards) > dVal)
         {
           //player has a higher value
           $(".pval").text("You win");
-          $(".deal").show();
-          $(".hit").hide();
-          $(".stand").hide();
+          gameOver(dCards, myCards);
           wins++;
-          myCards.length = 0;
-          dCards.length = 0;
         }else{
           //player has a lower value
           $(".pval").text("You lose");
           losses++;
-          dCards.length = 0;
-          myCards.length = 0;
           gameOver(dCards,myCards);
-
         }
       })
 
