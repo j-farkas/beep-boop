@@ -67,6 +67,31 @@ function createDeck(){
   }
   return deck;
 }
+function checkVal(arr) {
+  arr=arr.sort();
+  var val = 0;
+  var ace = 0;
+  arr.forEach(function(ar)
+{
+  if(ar.charAt(0) === "J" || ar.charAt(0) === "J" )
+if(ar.charAt(0) === "K"  ){
+val+=10;
+}else if(ar.charAt(0) === "A")
+{
+  val += 11;
+  ace += 1;
+}else{
+  val += ar.parseInt(charAt(0));
+}
+
+})
+
+if(val > 21 && ace > 0)
+{
+
+}
+  return val;
+}
 $(document).ready(function(){
   var deck = createDeck();
   shuffle(deck);
@@ -85,13 +110,25 @@ $(document).ready(function(){
     event.preventDefault();
     });
     $(".deal").click(function(event){
+      var myVal;
+      var dVal;
       $(".deal").hide();
       $(".hit").show();
       $(".stand").show();
-      $(".dcards").append("<li>" + deck[0] + deck[1] +"</li>");
-      $(".mycards").append("<li>" + deck[2] + deck[3] +"</li>");
+      dcards = [deck[0],deck[1]];
+      mycards = [deck[2],deck[3]];
+      $(".dcards").append("<li>" + dcards[0] + "</li><li>" + dcards[1] +"</li>");
+      $(".mycards").append("<li>" + mycards[0] +"</li><li>" + mycards[1] +"</li>");
+      myVal = checkVal(mycards);
+      console.log(myVal);
       //Put the used cards in the bottom of the deck
-      deck = deck.slice(4,deck.length).concat(deck.slice(0,3));
-      
+      deck = deck.slice(4,deck.length).concat(deck.slice(0,4));
+      console.log(deck);
+      $(".hit").click(function(event){
+        $(".mycards").append("<li>" + deck[0] +"</li>");
+        deck = deck.slice(1,deck.length).concat(deck.slice(0,1));
+        console.log(deck);
+      })
+
     });
   });
