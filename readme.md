@@ -6,13 +6,14 @@
 
 ## Description
 
-_Checks if numbers in a given array have specific digits, if so provides different output_
+_Checks if numbers in a given array have specific digits, if so provides different output. also allows the user to play blackjack_
 
 ## Setup/Installation Requirements
 
 * _Clone from Repository_
 * _Run in browser_
 * _Enter a number_
+* _Or hit deal if you want to play blackjack_
 
 
 ## Known Bugs
