@@ -172,7 +172,7 @@ $(document).ready(function(){
         $(".stand").hide();
         clearArr(myCards);
       }
-      $(".hit").click(function(event){
+      $(".hit").off().on('click', function() {
         $(".mycards").empty();
         hit();
         myCards.forEach(function(i){
