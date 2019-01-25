@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 h2{
   text-align:center;
 }
@@ -13,4 +14,13 @@ body{
 ul{
   float:right;
   margin-right: 33%;
+=======
+.hidden{
+  display: none;
+}
+
+img{
+  height: 76px;
+  width: 50px;
+>>>>>>> exp
 }
