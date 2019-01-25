@@ -153,10 +153,10 @@ function randomBack(){
     j = "Yellow";
     break;
   case 4:
-    j = "blue";
+    j = "Blue";
     break;
   case 5:
-    j = "purple";
+    j = "Purple";
     break;
 }
   return j;
