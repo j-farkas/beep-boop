@@ -130,7 +130,7 @@ function hit(){
 }
 function stand(){
   dVal = checkVal(dCards);
-  while(dVal < 16 && dVal < checkVal(myCards))
+  while(dVal < 16 && dVal)
   {
     dCards.push(deck[0]);
     deck = deck.slice(1,deck.length).concat(deck.slice(0,1));
