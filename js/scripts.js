@@ -132,10 +132,9 @@ function hit(){
 }
 function stand(){
   dVal = checkVal(dCards);
-  while(dVal < 16 && dVal < myVal)
+  while(dVal < 16 && dVal < checkVal(myCards))
   {
     dCards.push(deck[0]);
-    $(".dcards").append("<li>" + deck[0] +"</li>");
     deck = deck.slice(1,deck.length).concat(deck.slice(0,1));
     dVal = checkVal(dCards);
   }
@@ -223,10 +222,11 @@ $(document).ready(function(){
         }
       })
       $(".stand").click(function(event){
+        stand();
         $(".dcards").empty();
         dCards.forEach(function(i){
-        $(".dcards").append("<li>" + i +"</li>");});
-        stand();
+        $(".dcards").append($(".dcards").append("<li> <img src=img/" + i.split(" ")[0].charAt(0) + i.split(" ")[2].charAt(0)  +".jpg></li>"));
+      });
         var dVal=checkVal(dCards);
         if(dVal > 21)
         {
