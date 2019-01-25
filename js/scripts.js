@@ -133,7 +133,15 @@ $(document).ready(function(){
         $(".mycards").append("<li>" + deck[0] +"</li>");
         deck = deck.slice(1,deck.length).concat(deck.slice(0,1));
         myVal = checkVal(myCards);
-        console.log(myVal);
+        if(myVal > 21)
+        {
+          //player hast lost
+          $(".pval").text("Busted");
+          $(".deal").show();
+          $(".hit").hide();
+          $(".stand").hide();
+
+        }
       })
 
     });
