@@ -17,6 +17,14 @@ function parNum(num){
   return arr;
 }
 
+var losses = 0;
+var wins = 0;
+var myVal = 0;
+var dVal = 0;
+var myCards = [];
+var dCards = [];
+var deck = [];
+
 function shuffle(a) {
     var j, x, i;
     for (i = a.length - 1; i > 0; i--) {
@@ -29,7 +37,6 @@ function shuffle(a) {
 }
 
 function createDeck(){
-  var deck = [];
   for(i=1;i<=52;i++)
   {
     var toPush = "";
@@ -64,7 +71,6 @@ function createDeck(){
 
     deck.push(toPush);
   }
-  return deck;
 }
 function checkVal(arr) {
   var val = 0;
@@ -98,14 +104,26 @@ function gameOver(arr, arr2){
   clearArr(arr2);
 }
 function clearArr(A){
-  while(A.length > 0) {
-      A.pop();
-  }
+  A.length = 0;
 }
 
-var losses = 0;
-var wins = 0;
 
+function init()
+{
+  createDeck();
+  shuffle(deck);
+  dCards = deck.slice(0,2);
+  myCards = deck.slice(2,4);
+  myVal = checkVal(myCards);
+  return deck;
+}
+
+function hit(){
+  myCards.push(deck[0]);
+  deck = deck.slice(1,deck.length).concat(deck.slice(0,1));
+  myVal = checkVal(myCards);
+
+}
 $(document).ready(function(){
   function toList(arr){
     arr.forEach(function(ar){
@@ -121,10 +139,7 @@ $(document).ready(function(){
     });
     $(".deal").click(function(event){
       //initialize everything
-      var deck = createDeck();
-      shuffle(deck);
-      var myVal = 0;
-      var dVal = 0;
+      var deck = init();
       $(".deal").hide();
       $(".hit").show();
       $(".stand").show();
@@ -133,16 +148,14 @@ $(document).ready(function(){
       $(".pval").empty();
       $(".wins").text("Wins: " + wins);
       $(".losses").text("Losses: " + losses);
-      dCards = deck.slice(0,2);
-      myCards = deck.slice(2,4);
+      /*deck = deck.slice(4,deck.length).concat(deck.slice(0,4));*/
       myCards.forEach(function(i){
         $(".mycards").append("<li>" + i +"</li>");
       });
       dCards.forEach(function(i){
         $(".dcards").append("<li>" + i +"</li>");
       });
-      myVal = checkVal(myCards);
-      if(myVal === 21)
+      if(checkVal(myCards) === 21)
       {
         //blackjack, player wins
         wins++;
@@ -150,26 +163,21 @@ $(document).ready(function(){
         $(".deal").show();
         $(".hit").hide();
         $(".stand").hide();
-
+        clearArr(myCards);
       }
-      //Put the used cards in the bottom of the deck
-      deck = deck.slice(4,deck.length).concat(deck.slice(0,4));
       $(".hit").click(function(event){
         $(".mycards").empty();
-        console.log(myCards);
-        myCards.push(deck[0]);
+        hit();
+
         myCards.forEach(function(i){
           $(".mycards").append("<li>" + i +"</li>");
         });
-        deck = deck.slice(1,deck.length).concat(deck.slice(0,1));
-        myVal = checkVal(myCards);
-        if(myVal > 21)
+        if(checkVal(myCards) > 21)
         {
           //player has lost
           $(".pval").text("Busted");
           gameOver(dCards, myCards);
-          clearArr(myCards);
-          console.log(myCards);
+
           losses++;
         }
       })
