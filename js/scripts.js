@@ -91,6 +91,19 @@ while(val > 21 && ace > 0)
 }
   return val;
 }
+
+function gameOver(arr, arr2){
+  $(".deal").show();
+  $(".hit").hide();
+  $(".stand").hide();
+  clearArr(arr);
+  clearArr(arr2);
+}
+function clearArr(A){
+  while(A.length > 0) {
+      A.pop();
+  }
+}
 var losses = 0;
 var wins = 0;
 $(document).ready(function(){
@@ -112,8 +125,6 @@ $(document).ready(function(){
       //initialize everything
       var myVal = 0;
       var dVal = 0;
-      var dCards = [];
-      var myCards = [];
       $(".deal").hide();
       $(".hit").show();
       $(".stand").show();
@@ -122,8 +133,8 @@ $(document).ready(function(){
       $(".pval").empty();
       $(".wins").text("Wins: " + wins);
       $(".losses").text("Losses: " + losses);
-      dCards = [deck[0],deck[1]];
-      myCards = [deck[2],deck[3]];
+      var dCards = [deck[0],deck[1]];
+      var myCards = [deck[2],deck[3]];
       myCards.forEach(function(i){
         $(".mycards").append("<li>" + i +"</li>");
       });
@@ -139,34 +150,27 @@ $(document).ready(function(){
         $(".deal").show();
         $(".hit").hide();
         $(".stand").hide();
+
       }
-
-console.log(myCards);
-
-
-
       //Put the used cards in the bottom of the deck
       deck = deck.slice(4,deck.length).concat(deck.slice(0,4));
       $(".hit").click(function(event){
         $(".mycards").empty();
+        console.log(myCards);
         myCards.push(deck[0]);
         myCards.forEach(function(i){
           $(".mycards").append("<li>" + i +"</li>");
         });
         deck = deck.slice(1,deck.length).concat(deck.slice(0,1));
         myVal = checkVal(myCards);
-        console.log(myCards);
         if(myVal > 21)
         {
           //player has lost
           $(".pval").text("Busted");
-          $(".deal").show();
-          $(".hit").hide();
-          $(".stand").hide();
+          gameOver(dCards, myCards);
+          clearArr(myCards);
+          console.log(myCards);
           losses++;
-          myCards.length = 0;
-          dCards.length = 0;
-
         }
       })
       $(".stand").click(function(event){
@@ -204,12 +208,11 @@ console.log(myCards);
         }else{
           //player has a lower value
           $(".pval").text("You lose");
-          $(".deal").show();
-          $(".hit").hide();
-          $(".stand").hide();
           losses++;
-          myCards.length = 0;
           dCards.length = 0;
+          myCards.length = 0;
+          gameOver(dCards,myCards);
+
         }
       })
 
