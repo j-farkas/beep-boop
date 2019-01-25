@@ -69,18 +69,16 @@ function createDeck(){
 function checkVal(arr) {
   var val = 0;
   var ace = 0;
-  arr.forEach(function(ar)
-{
+  arr.forEach(function(ar){
   if(ar.charAt(0) === "J" || ar.charAt(0) === "Q" || ar.charAt(0) === "K"  ){
-val+=10;
-}else if(ar.charAt(0) === "A")
-{
+    val+=10;
+  }else if(ar.charAt(0) === "A"){
   val += 11;
   ace += 1;
-}else{
+  }else{
   //To handle 10s
   val += parseInt(ar.split(" ")[0]);
-}
+  }
 
 })
 
@@ -107,6 +105,7 @@ function clearArr(A){
 
 var losses = 0;
 var wins = 0;
+
 $(document).ready(function(){
   function toList(arr){
     arr.forEach(function(ar){
