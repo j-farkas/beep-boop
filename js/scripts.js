@@ -106,7 +106,6 @@ function clearArr(A){
   A = [];
 }
 
-
 function init()
 {
   myCards.length = 0;
@@ -242,7 +241,6 @@ $(document).ready(function(){
           $(".pval").text("You lose");
           gameOver(dCards,myCards);
         }
-      })
-
+      });
     });
   });
