@@ -10,7 +10,7 @@ _Checks if numbers in a given array have specific digits, if so provides differe
 
 ## Setup/Installation Requirements
 
-* _Clone from Repository_
+* _Clone from https://github.com/j-farkas/beep-boop.git_
 * _Run in browser_
 * _Enter a number_
 * _Or hit deal if you want to play blackjack_
