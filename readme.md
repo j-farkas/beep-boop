@@ -21,13 +21,14 @@ _Checks if numbers in a given array have specific digits, if so provides differe
 _None known_
 
 ## Specs
-* _input: 1 / expected output: 0_
-* _input: 5 / expected output: 0,beep!,boop,I'm sorry dave I'm afraid I can't do that,4_
-* _input: 32 / expected output: ...,I'm sorry dave I'm afraid I can't do that_
-* _input: 21 / expected output: ...,boop_
-* _input: 103 / expected output: ...,I'm sorry dave I'm afraid I can't do that_
-* _input: 123 / expected output: ...,I'm sorry dave I'm afraid I can't do that_
-* _input: 177 / expected output: ...,beep!_
+* _If 1 is input, program will output: 0,beep!_
+* _If 5 is input, program will output: 0,beep!,boop,I'm sorry dave I'm afraid I can't do that,4_
+* _If 32 is input, program will output: I'm sorry dave I'm afraid I can't do that after counting up to 32 replacing as indicated prior_
+* _If 21 is input, program will output: ...,boop, after counting up to 21, replacing as indicated prior_
+* _If 103 is input, program will output: I'm sorry dave I'm afraid I can't do that, after counting up to 102, while replacing numbers as indicated prior_
+* _If 123 is input, program will output: ...,I'm sorry dave I'm afraid I can't do that, after counting up to 123, replacing numbers as indicated prior_
+* _If 177 is input, program will output: ...,beep! after replacing numbers as indicated prior_
+* _If the deal button is hit, a hand blackjack will be dealt_
 
 ## Technologies Used
 
